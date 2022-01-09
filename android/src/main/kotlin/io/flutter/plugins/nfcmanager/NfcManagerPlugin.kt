@@ -24,6 +24,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import java.io.IOException
 import java.lang.Exception
+import kotlin.experimental.and
+import kotlin.experimental.or
 import java.util.*
 
 class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
