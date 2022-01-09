@@ -317,9 +317,7 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         tagHandler(call, result, { MifareUltralight.get(it) }) {
             val data = call.argument<String>("data")!!
             val pass = data.toByteArray()
-            println("Basem pass is ${pass.toString(Charset.defaultCharset())}")
             val pack = byteArrayOf(0x98.toByte(), 0x76.toByte())
-            println("Basem pass is ${pack.toString(Charset.defaultCharset())}")
 
             val auth: ByteArray = it.transceive(
                 byteArrayOf(
@@ -328,8 +326,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
                 )
             )
-            println("Basem pass is ${auth.toString(Charset.defaultCharset())}")
-
 
             if (auth != null && auth.count() >= 2) {
                 val pack: ByteArray = Arrays.copyOf(auth, 2)
@@ -338,7 +334,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 // really meant to bring much security, I hope; same with the
                 // NTAG signature btw.)
             }
-
 
             val one: ByteArray = it.transceive(
                 byteArrayOf(
@@ -385,7 +380,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                             response[0],  // keep old value for byte 0
                             response[1],  // keep old value for byte 1
                             response[2],  // keep old value for byte 2
-//                            0xff.toByte()
                             (auth0 and 0x0ff).toByte()
                         )
                     )
@@ -402,9 +396,7 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         tagHandler(call, result, { MifareUltralight.get(it) }) {
             val data = call.argument<String>("data")!!
             val pass = data.toByteArray()
-            println("Basem pass is ${pass.toString(Charset.defaultCharset())}")
             val pack = byteArrayOf(0x98.toByte(), 0x76.toByte())
-            println("Basem pass is ${pack.toString(Charset.defaultCharset())}")
 
             val auth: ByteArray = it.transceive(
                 byteArrayOf(
@@ -413,8 +405,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
                 )
             )
-            println("Basem pass is ${auth.toString(Charset.defaultCharset())}")
-
 
             if (auth != null && auth.count() >= 2) {
                 val pack: ByteArray = Arrays.copyOf(auth, 2)
@@ -423,7 +413,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 // really meant to bring much security, I hope; same with the
                 // NTAG signature btw.)
             }
-
 
             val one: ByteArray = it.transceive(
                 byteArrayOf(
@@ -471,7 +460,6 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                             response[1],  // keep old value for byte 1
                             response[2],  // keep old value for byte 2
                             0xff.toByte()
-//                            (auth0 and 0x0ff).toByte()
                         )
                     )
                 }
