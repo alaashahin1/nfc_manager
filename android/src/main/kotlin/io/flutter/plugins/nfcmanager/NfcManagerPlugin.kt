@@ -321,21 +321,21 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             val pass = data.toByteArray()
             val pack = byteArrayOf(0x98.toByte(), 0x76.toByte())
 
-            val auth: ByteArray = it.transceive(
-                byteArrayOf(
-                    0x1B.toByte(),  // PWD_AUTH
-                    pass[0], pass[1], pass[2], pass[3]
-
-                )
-            )
-
-            if (auth != null && auth.count() >= 2) {
-                val pack: ByteArray = Arrays.copyOf(auth, 2)
-                // TODO: verify PACK to confirm that tag is authentic (not really,
-                // but that whole PWD_AUTH/PACK authentication mechanism was not
-                // really meant to bring much security, I hope; same with the
-                // NTAG signature btw.)
-            }
+//            val auth: ByteArray = it.transceive(
+//                byteArrayOf(
+//                    0x1B.toByte(),  // PWD_AUTH
+//                    pass[0], pass[1], pass[2], pass[3]
+//
+//                )
+//            )
+//
+//            if (auth != null && auth.count() >= 2) {
+//                val pack: ByteArray = Arrays.copyOf(auth, 2)
+//                // TODO: verify PACK to confirm that tag is authentic (not really,
+//                // but that whole PWD_AUTH/PACK authentication mechanism was not
+//                // really meant to bring much security, I hope; same with the
+//                // NTAG signature btw.)
+//            }
 
             val one: ByteArray = it.transceive(
                 byteArrayOf(
@@ -343,6 +343,16 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     43.toByte(),
 
                     pass[0], pass[1], pass[2], pass[3]
+                )
+            )
+            val two: ByteArray = it.transceive(
+                byteArrayOf(
+                    0xA2.toByte(),  // WRITE
+                    44.toByte(),  // page address
+                    pack[0],
+                    pack[1],
+                    0.toByte(),
+                    0.toByte()// other bytes are RFU and must be written as 0
                 )
             )
             var response: ByteArray = it.transceive(
@@ -422,6 +432,16 @@ class NfcManagerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     43.toByte(),
 
                     pass[0], pass[1], pass[2], pass[3]
+                )
+            )
+            val two: ByteArray = it.transceive(
+                byteArrayOf(
+                    0xA2.toByte(),  // WRITE
+                    44.toByte(),  // page address
+                    pack[0],
+                    pack[1],
+                    0.toByte(),
+                    0.toByte()// other bytes are RFU and must be written as 0
                 )
             )
             var response: ByteArray = it.transceive(
